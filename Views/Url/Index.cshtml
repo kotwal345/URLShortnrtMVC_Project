@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "URL Shortener";
+}
+<h2>URL Shortener</h2>
+
+<form asp-action="Shorten" method="post">
+    <div class="form-group">
+        <label>Original URL</label>
+        <input type="text" name="originalUrl" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Shorten</button>
+</form>
+
+@if (ViewBag.ShortUrl != null)
+{
+    <div class="alert alert-success mt-3">
+        Shortened URL: <a href="@ViewBag.ShortUrl" target="_blank">@ViewBag.ShortUrl</a>
+    </div>
+}
+
+<form method="get" asp-action="PreviousUrls" asp-controller="Url">
+    <button type="submit" class="btn btn-secondary mt-3">View My Previous URLs</button>
+</form>
