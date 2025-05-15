@@ -28,4 +28,24 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    [HttpGet]
+    public IActionResult Contact()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Contact(ContactModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            // You can log it, send an email, or store it
+            TempData["SuccessMessage"] = "Thank you for contacting us!";
+            return RedirectToAction("Contact");
+        }
+
+        return View(model);
+    }
 }

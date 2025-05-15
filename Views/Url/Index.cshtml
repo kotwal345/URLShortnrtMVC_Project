@@ -1,27 +1,49 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
 @{
     ViewData["Title"] = "URL Shortener";
 }
-<h2>URL Shortener</h2>
 
-<form asp-action="Shorten" method="post">
-    <div class="form-group">
-        <label>Original URL</label>
-        <input type="text" name="originalUrl" class="form-control" required />
-    </div>
-    <button type="submit" class="btn btn-primary mt-2">Shorten</button>
-</form>
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="card shadow-lg p-4 rounded w-100" style="max-width: 600px;">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="text-secondary m-0">URL Shortener</h3>
+                <form asp-action="Logout" asp-controller="Account" method="post" asp-antiforgery="true">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+            </div>
 
-@if (ViewBag.ShortUrl != null)
-{
-    <div class="alert alert-success mt-3">
-        Shortened URL: <a href="@ViewBag.ShortUrl" target="_blank">@ViewBag.ShortUrl</a>
+            <form asp-action="Shorten" method="post">
+                <div class="form-group mb-3">
+                    <label class="form-label">Original URL</label>
+                    <input type="text" name="originalUrl" class="form-control" placeholder="Enter your URL here" required />
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Shorten</button>
+                </div>
+            </form>
+
+            @if (ViewBag.ShortUrl != null)
+            {
+                <div class="alert alert-success mt-3">
+                    Shortened URL: <a href="@ViewBag.ShortUrl" target="_blank">@ViewBag.ShortUrl</a>
+                </div>
+            }
+
+            <form method="get" asp-action="PreviousUrls" asp-controller="Url">
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-secondary">View My Previous URLs</button>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
+
+@section Scripts {
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 }
-
-<form method="get" asp-action="PreviousUrls" asp-controller="Url">
-    <button type="submit" class="btn btn-secondary mt-3">View My Previous URLs</button>
-</form>

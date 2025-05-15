@@ -47,10 +47,20 @@ namespace URLShortnerMVC_Project.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Account/Logout")]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
+
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
     }
 }
